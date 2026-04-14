@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="theme-color" content="#E20074">
+    <meta name="description" content="MatchMasters.ai - Adam matcht ZZP'ers in zorg, techniek en veiligheid binnen 24 uur met de perfecte opdracht. Geen gedoe, direct resultaat.">
+    <title>MatchMasters.ai - Adam vindt jouw volgende opdracht</title>
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --magenta: #E20074;
+            --magenta-dark: #B8005C;
+            --magenta-light: #FF1493;
+            --cyan: #00BFFF;
+            --cyan-dark: #0099CC;
+            --dark: #0A0A0F;
+            --gray-900: #1A1A24;
+            --gray-700: #3A3A4A;
+            --gray-500: #6A6A7A;
+            --gray-300: #B0B0C0;
+            --gray-100: #F0F0F5;
+            --white: #FFFFFF;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --radius-full: 9999px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif;
+            background: var(--white);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button {
+            font-family: inherit;
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--gray-100);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled {
+            height: 60px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-inner {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 20px;
+            color: var(--dark);
+        }
+
+        .logo-icon {
+            width: 38px;
+            height: 38px;
+            background: linear-gradient(135deg, var(--magenta), var(--magenta-light));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 900;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .nav-desktop {
+            display: none;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .nav-link {
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--gray-700);
+            transition: color 0.2s;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--magenta);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--magenta);
+            transition: width 0.3s;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: var(--radius-full);
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--magenta), var(--magenta-light));
+            color: var(--white);
+            box-shadow: 0 4px 15px rgba(226, 0, 116, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(226, 0, 116, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--white);
+            color: var(--dark);
+            border: 2px solid var(--gray-100);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--magenta);
+            color: var(--magenta);
+        }
+
+        .btn-large {
+            padding: 16px 32px;
+            font-size: 16px;
+        }
+
+        .mobile-menu-btn {
+            width: 44px;
+            height: 44px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            border-radius: var(--radius-md);
+            background: var(--gray-100);
+        }
+
+        .mobile-menu-btn span {
+            width: 20px;
+            height: 2px;
+            background: var(--dark);
+            transition: all 0.3s;
+        }
+
+        .mobile-nav {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            border-bottom: 1px solid var(--gray-100);
+            padding: 20px;
+            transform: translateY(-100%);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .mobile-nav.active {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .mobile-nav-link {
+            padding: 12px 16px;
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--gray-700);
+            border-radius: var(--radius-md);
+            transition: all 0.2s;
+        }
+
+        .mobile-nav-link:hover {
+            background: var(--gray-100);
+            color: var(--magenta);
+        }
+
+        /* ===== MAIN ===== */
+        .main {
+            padding-top: 70px;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: calc(100vh - 70px);
+            display: flex;
+            align-items: center;
+            padding: 40px 0 60px;
+            background: linear-gradient(180deg, var(--white) 0%, var(--gray-100) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 80%;
+            height: 100%;
+            background: radial-gradient(ellipse, rgba(226, 0, 116, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-inner {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .hero-content {
+            order: 2;
+            text-align: center;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--white);
+            padding: 8px 16px;
+            border-radius: var(--radius-full);
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--magenta);
+            border: 1px solid var(--gray-100);
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .hero-badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--magenta);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .hero-title {
+            font-size: clamp(32px, 8vw, 56px);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 16px;
+            letter-spacing: -1px;
+        }
+
+        .hero-title span {
+            background: linear-gradient(135deg, var(--magenta), var(--cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(16px, 4vw, 20px);
+            color: var(--gray-500);
+            margin-bottom: 32px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 40px;
+            max-width: 320px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 16px 8px;
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .stat-number {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--magenta);
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: var(--gray-500);
+            font-weight: 500;
+        }
+
+        .hero-visual {
+            order: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .adam-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 320px;
+        }
+
+        .adam-image {
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(0 20px 40px rgba(226, 0, 116, 0.2));
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .adam-bubble {
+            position: absolute;
+            top: 0;
+            left: -10px;
+            background: var(--white);
+            padding: 16px 20px;
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            font-size: 13px;
+            color: var(--gray-700);
+            max-width: 200px;
+            border: 1px solid var(--gray-100);
+            animation: float 6s ease-in-out infinite;
+            animation-delay: 0.5s;
+        }
+
+        .adam-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            right: 30px;
+            width: 16px;
+            height: 16px;
+            background: var(--white);
+            border-bottom: 1px solid var(--gray-100);
+            border-right: 1px solid var(--gray-100);
+            transform: rotate(45deg);
+        }
+
+        /* ===== SECTIONS ===== */
+        .section {
+            padding: 60px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        .section-label {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--magenta);
+            margin-bottom: 12px;
+            padding: 6px 12px;
+            background: rgba(226, 0, 116, 0.1);
+            border-radius: var(--radius-full);
+        }
+
+        .section-title {
+            font-size: clamp(28px, 6vw, 40px);
+            font-weight: 800;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        .section-subtitle {
+            font-size: 16px;
+            color: var(--gray-500);
+        }
+
+        /* ===== HOW IT WORKS ===== */
+        .how-section {
+            background: var(--white);
+        }
+
+        .steps-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .step-card {
+            background: var(--gray-100);
+            border-radius: var(--radius-xl);
+            padding: 28px;
+            position: relative;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .step-card:hover {
+            background: var(--white);
+            border-color: var(--magenta);
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-4px);
+        }
+
+        .step-number {
+            position: absolute;
+            top: -12px;
+            left: 24px;
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--magenta), var(--magenta-light));
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 14px;
+            border: 3px solid var(--white);
+        }
+
+        .step-icon {
+            font-size: 40px;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .step-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+
+        .step-desc {
+            font-size: 15px;
+            color: var(--gray-500);
+            line-height: 1.5;
+        }
+
+        /* ===== BENEFITS ===== */
+        .benefits-section {
+            background: var(--gray-100);
+        }
+
+        .benefits-grid {
+            display: grid;
+            gap: 16px;
+        }
+
+        .benefit-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            background: var(--white);
+            padding: 24px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+        }
+
+        .benefit-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateX(4px);
+        }
+
+        .benefit-icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--magenta), var(--magenta-light));
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .benefit-content h3 {
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: var(--dark);
+        }
+
+        .benefit-content p {
+            font-size: 14px;
+            color: var(--gray-500);
+            line-height: 1.5;
+        }
+
+        /* ===== SECTORS ===== */
+        .sectors-section {
+            background: var(--white);
+        }
+
+        .sectors-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .sector-card {
+            background: var(--white);
+            border: 2px solid var(--gray-100);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .sector-card:hover {
+            border-color: var(--magenta);
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-8px);
+        }
+
+        .sector-header {
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sector-zorg { background: linear-gradient(135deg, #E8F5E9, #C8E6C9); }
+        .sector-tech { background: linear-gradient(135deg, #FFF3E0, #FFE0B2); }
+        .sector-veilig { background: linear-gradient(135deg, #E3F2FD, #BBDEFB); }
+
+        .sector-content {
+            padding: 24px;
+        }
+
+        .sector-title {
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            color: var(--dark);
+        }
+
+        .sector-list {
+            list-style: none;
+        }
+
+        .sector-list li {
+            padding: 6px 0;
+            font-size: 14px;
+            color: var(--gray-500);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .sector-list li::before {
+            content: '•';
+            color: var(--magenta);
+            font-weight: 700;
+        }
+
+        /* ===== JOBS ===== */
+        .jobs-section {
+            background: var(--gray-100);
+        }
+
+        .jobs-grid {
+            display: grid;
+            gap: 12px;
+        }
+
+        .job-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .job-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateX(8px);
+            border-left: 3px solid var(--magenta);
+        }
+
+        .job-info h4 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--dark);
+        }
+
+        .job-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .job-tag {
+            font-size: 12px;
+            padding: 4px 10px;
+            background: var(--gray-100);
+            border-radius: var(--radius-full);
+            color: var(--gray-500);
+            font-weight: 500;
+        }
+
+        .job-rate {
+            text-align: right;
+            flex-shrink: 0;
+        }
+
+        .job-amount {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--magenta);
+            line-height: 1;
+        }
+
+        .job-location {
+            font-size: 12px;
+            color: var(--gray-500);
+            margin-top: 4px;
+        }
+
+        /* ===== CTA SECTION ===== */
+        .cta-section {
+            background: linear-gradient(135deg, var(--magenta), var(--magenta-light));
+            padding: 80px 0;
+            text-align: center;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-title {
+            font-size: clamp(28px, 6vw, 40px);
+            font-weight: 900;
+            margin-bottom: 16px;
+        }
+
+        .cta-text {
+            font-size: 16px;
+            opacity: 0.95;
+            margin-bottom: 32px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-white {
+            background: var(--white);
+            color: var(--magenta);
+            padding: 16px 40px;
+            border-radius: var(--radius-full);
+            font-weight: 700;
+            font-size: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-white:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--dark);
+            color: var(--white);
+            padding: 40px 0 20px;
+        }
+
+        .footer-inner {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            align-items: center;
+            text-align: center;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 20px;
+        }
+
+        .footer-logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--magenta), var(--magenta-light));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 24px;
+        }
+
+        .footer-link {
+            color: var(--gray-300);
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .footer-link:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            padding-top: 20px;
+            border-top: 1px solid var(--gray-700);
+            width: 100%;
+            text-align: center;
+        }
+
+        .footer-copyright {
+            font-size: 13px;
+            color: var(--gray-500);
+        }
+
+        /* ===== TABLET & DESKTOP ===== */
+        @media (min-width: 768px) {
+            .container {
+                padding: 0 40px;
+            }
+
+            .nav-desktop {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: none;
+            }
+
+            .hero-inner {
+                grid-template-columns: 1fr 1fr;
+                gap: 60px;
+            }
+
+            .hero-content {
+                order: 1;
+                text-align: left;
+            }
+
+            .hero-visual {
+                order: 2;
+            }
+
+            .hero-subtitle {
+                margin-left: 0;
+                margin-right: 0;
+            }
+
+            .hero-buttons {
+                flex-direction: row;
+                margin-left: 0;
+                margin-right: 0;
+                max-width: none;
+            }
+
+            .hero-stats {
+                margin: 0;
+            }
+
+            .steps-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .benefits-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .sectors-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .jobs-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-inner {
+                flex-direction: row;
+                justify-content: space-between;
+                text-align: left;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .hero-title {
+                font-size: 64px;
+            }
+
+            .section {
+                padding: 100px 0;
+            }
+
+            .adam-wrapper {
+                max-width: 400px;
+            }
+        }
+
+        /* ===== ANIMATIONS ===== */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+<base target="_blank">
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header" id="header">
+        <div class="container">
+            <div class="header-inner">
+                <a href="#" class="logo">
+                    <div class="logo-icon">A</div>
+                    <span>matchmasters.ai</span>
+                </a>
+
+                <nav class="nav-desktop">
+                    <a href="#hoe-werkt" class="nav-link">Hoe het werkt</a>
+                    <a href="#sectoren" class="nav-link">Vakgebieden</a>
+                    <a href="#opdrachten" class="nav-link">Opdrachten</a>
+                    <a href="#start" class="btn btn-primary">CV Uploaden</a>
+                </nav>
+
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MOBILE NAV -->
+    <nav class="mobile-nav" id="mobileNav">
+        <div class="mobile-nav-links">
+            <a href="#hoe-werkt" class="mobile-nav-link">Hoe het werkt</a>
+            <a href="#sectoren" class="mobile-nav-link">Vakgebieden</a>
+            <a href="#opdrachten" class="mobile-nav-link">Opdrachten</a>
+            <a href="#start" class="btn btn-primary" style="margin-top: 8px;">Direct aanmelden</a>
+        </div>
+    </nav>
+
+    <!-- MAIN -->
+    <main class="main">
+
+        <!-- HERO -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-inner">
+                    <div class="hero-content">
+                        <div class="hero-badge">Al 1.200+ matches gemaakt</div>
+                        <h1 class="hero-title">
+                            Jouw volgende opdracht <span>vindt jou</span>
+                        </h1>
+                        <p class="hero-subtitle">
+                            Geen uren zoeken, geen eindeloze gesprekken. Adam matcht je binnen 24 uur met opdrachtgevers die écht op jou zitten te wachten. In zorg, techniek en veiligheid.
+                        </p>
+                        <div class="hero-buttons">
+                            <button class="btn btn-primary btn-large" onclick="document.getElementById('fileInput').click()">
+                                📄 Upload je CV
+                            </button>
+                            <input type="file" id="fileInput" hidden accept=".pdf,.doc,.docx">
+                            <a href="#opdrachten" class="btn btn-secondary btn-large">Bekijk openstaande opdrachten</a>
+                        </div>
+                        <div class="hero-stats">
+                            <div class="stat-item">
+                                <div class="stat-number">1.247</div>
+                                <div class="stat-label">Actieve opdrachten</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">24u</div>
+                                <div class="stat-label">Gematcht</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">98%</div>
+                                <div class="stat-label">Tevreden</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hero-visual">
+                        <div class="adam-wrapper">
+                            <div class="adam-bubble">
+                                "Ik zag net een opdracht in Utrecht die perfect bij jouw profiel past. Interesse?"
+                            </div>
+                            <img src="https://brokenphone.nl/wp-content/uploads/2026/04/adam_ai-Photoroom.png" alt="Adam - jouw persoonlijke matchmaker" class="adam-image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- HOW IT WORKS -->
+        <section class="section how-section" id="hoe-werkt">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-label">Zo simpel is het</span>
+                    <h2 class="section-title">Van CV naar opdracht in 3 stappen</h2>
+                    <p class="section-subtitle">Geen ingewikkelde formulieren. Geen tussenpersonen. Gewoon direct contact met opdrachtgevers.</p>
+                </div>
+
+                <div class="steps-grid">
+                    <div class="step-card fade-up">
+                        <div class="step-number">1</div>
+                        <span class="step-icon">📄</span>
+                        <h3 class="step-title">Upload je CV</h3>
+                        <p class="step-desc">Sleep je PDF in het venster of vul je gegevens handmatig in. Binnen 2 minuten ben je klaar.</p>
+                    </div>
+                    <div class="step-card fade-up">
+                        <div class="step-number">2</div>
+                        <span class="step-icon">🧠</span>
+                        <h3 class="step-title">Adam gaat voor je aan de slag</h3>
+                        <p class="step-desc">Onze AI leest je ervaring, skills en voorkeuren. Geen standaard zoekertjes, maar slimme matches.</p>
+                    </div>
+                    <div class="step-card fade-up">
+                        <div class="step-number">3</div>
+                        <span class="step-icon">🎯</span>
+                        <h3 class="step-title">Ontvang direct matches</h3>
+                        <p class="step-desc">Je krijgt alleen opdrachten die écht passen. Meteen contactgegevens, geen gedoe.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BENEFITS -->
+        <section class="section benefits-section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-label">Waarom ZZP'ers voor ons kiezen</span>
+                    <h2 class="section-title">Werken zoals het hoort</h2>
+                    <p class="section-subtitle">Geen tijd verspillen aan zoeken. Geen teleurstellingen. Gewoon goed werk, goed betaald.</p>
+                </div>
+
+                <div class="benefits-grid">
+                    <div class="benefit-card fade-up">
+                        <div class="benefit-icon">⚡</div>
+                        <div class="benefit-content">
+                            <h3>Binnen 24 uur een match</h3>
+                            <p>Terwijl jij nog bezig bent met je huidige opdracht, zoekt Adam alvast je volgende. Efficiënt.</p>
+                        </div>
+                    </div>
+                    <div class="benefit-card fade-up">
+                        <div class="benefit-icon">🎯</div>
+                        <div class="benefit-content">
+                            <h3>Alleen relevante opdrachten</h3>
+                            <p>Geen "misschien interessant"-berichten. Alleen opdrachten die echt bij jou passen.</p>
+                        </div>
+                    </div>
+                    <div class="benefit-card fade-up">
+                        <div class="benefit-icon">💰</div>
+                        <div class="benefit-content">
+                            <h3>Betere tarieven, direct</h3>
+                            <p>Geen uitzendbureau dat 30% afroomt. Jij onderhandelt rechtstreeks met de opdrachtgever.</p>
+                        </div>
+                    </div>
+                    <div class="benefit-card fade-up">
+                        <div class="benefit-icon">🛡️</div>
+                        <div class="benefit-content">
+                            <h3>Geen verplichtingen</h3>
+                            <p>Niks passen? Geen probleem. Je zit nergens aan vast. Jij bepaalt welke opdrachten je aanneemt.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTORS -->
+        <section class="section sectors-section" id="sectoren">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-label">Waar we goed in zijn</span>
+                    <h2 class="section-title">Drie vakgebieden, één missie</h2>
+                    <p class="section-subtitle">We focussen op sectoren waar vraag en aanbod elkaar niet altijd vinden. Daar maken wij het verschil.</p>
+                </div>
+
+                <div class="sectors-grid">
+                    <div class="sector-card fade-up">
+                        <div class="sector-header sector-zorg">🏥</div>
+                        <div class="sector-content">
+                            <h3 class="sector-title">Zorg & Welzijn</h3>
+                            <ul class="sector-list">
+                                <li>Persoonlijk begeleiders</li>
+                                <li>Ambulante ondersteuning</li>
+                                <li>Verpleegkundige inzet</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="sector-card fade-up">
+                        <div class="sector-header sector-tech">🔧</div>
+                        <div class="sector-content">
+                            <h3 class="sector-title">Techniek & IT</h3>
+                            <ul class="sector-list">
+                                <li>Projectleiding & coördinatie</li>
+                                <li>Installatie & onderhoud</li>
+                                <li>Service & support</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="sector-card fade-up">
+                        <div class="sector-header sector-veilig">🛡️</div>
+                        <div class="sector-content">
+                            <h3 class="sector-title">Veiligheid</h3>
+                            <ul class="sector-list">
+                                <li>Objectbeveiliging</li>
+                                <li>Evenementenbeveiliging</li>
+                                <li>Operationeel toezicht</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- JOBS -->
+        <section class="section jobs-section" id="opdrachten">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-label">Nu beschikbaar</span>
+                    <h2 class="section-title">Recente opdrachten</h2>
+                    <p class="section-subtitle">Dit zijn opdrachten die momenteel openstaan. Solliciteren kan direct.</p>
+                </div>
+
+                <div class="jobs-grid">
+                    <div class="job-card fade-up">
+                        <div class="job-info">
+                            <h4>Persoonlijk Begeleider GGZ</h4>
+                            <div class="job-meta">
+                                <span class="job-tag">Zorg</span>
+                                <span class="job-tag">28-32 uur</span>
+                            </div>
+                        </div>
+                        <div class="job-rate">
+                            <div class="job-amount">€48/u</div>
+                            <div class="job-location">Utrecht</div>
+                        </div>
+                    </div>
+                    <div class="job-card fade-up">
+                        <div class="job-info">
+                            <h4>Projectleider Elektrotechniek</h4>
+                            <div class="job-meta">
+                                <span class="job-tag">Techniek</span>
+                                <span class="job-tag">40 uur</span>
+                            </div>
+                        </div>
+                        <div class="job-rate">
+                            <div class="job-amount">€78/u</div>
+                            <div class="job-location">Eindhoven</div>
+                        </div>
+                    </div>
+                    <div class="job-card fade-up">
+                        <div class="job-info">
+                            <h4>Objectbeveiliger Horeca</h4>
+                            <div class="job-meta">
+                                <span class="job-tag">Veiligheid</span>
+                                <span class="job-tag">24-32 uur</span>
+                            </div>
+                        </div>
+                        <div class="job-rate">
+                            <div class="job-amount">€34/u</div>
+                            <div class="job-location">Amsterdam</div>
+                        </div>
+                    </div>
+                    <div class="job-card fade-up">
+                        <div class="job-info">
+                            <h4>Ambulant Begeleider Jeugd</h4>
+                            <div class="job-meta">
+                                <span class="job-tag">Zorg</span>
+                                <span class="job-tag">24 uur</span>
+                            </div>
+                        </div>
+                        <div class="job-rate">
+                            <div class="job-amount">€52/u</div>
+                            <div class="job-location">Hilversum</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta-section" id="start">
+            <div class="container">
+                <div class="cta-content">
+                    <h2 class="cta-title">Klaar om aan de slag te gaan?</h2>
+                    <p class="cta-text">Jouw volgende opdracht staat al klaar. Upload je CV en Adam doet de rest. Binnen 24 uur weet je waar je aan toe bent.</p>
+                    <button class="btn-white" onclick="document.getElementById('fileInput').click()">
+                        🚀 Direct aanmelden
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-inner">
+                <div class="footer-brand">
+                    <div class="footer-logo-icon">A</div>
+                    <span>matchmasters.ai</span>
+                </div>
+
+                <nav class="footer-links">
+                    <a href="#" class="footer-link">Privacybeleid</a>
+                    <a href="#" class="footer-link">Algemene voorwaarden</a>
+                    <a href="#" class="footer-link">Contact</a>
+                    <a href="#" class="footer-link">LinkedIn</a>
+                </nav>
+
+                <div class="footer-bottom">
+                    <p class="footer-copyright">© 2026 MatchMasters.ai. Alle rechten voorbehouden.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileNav = document.getElementById('mobileNav');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileNav.classList.toggle('active');
+        });
+
+        // Close mobile nav on link click
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileNav.classList.remove('active');
+            });
+        });
+
+        // Intersection Observer for fade animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-up').forEach(el => {
+            observer.observe(el);
+        });
+
+        // File input handler
+        const fileInput = document.getElementById('fileInput');
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                const file = e.target.files[0];
+                alert(`✅ Ontvangen: ${file.name}\n\nAdam analyseert nu je profiel. Je hoort binnen 24 uur van ons met passende opdrachten.`);
+            }
+        });
+    </script>
+</body>
+</html>
